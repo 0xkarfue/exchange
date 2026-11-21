@@ -3,7 +3,6 @@ use crate::{
     types::{Amount, AssetId, UserId},
 };
 
-
 impl Balances {
     pub fn get(&self, user: UserId, asset: AssetId) -> Balance {
         self.map.get(&(user, asset)).copied().unwrap_or_default()
@@ -15,8 +14,14 @@ impl Balances {
         asset: AssetId,
         amount: Amount,
     ) -> Result<(), BalanceError> {
+        if amount == 0 {
+            return Err(BalanceError::InvalidAmount);
+        }
         let mut bal = self.get(user, asset);
-        bal.available = bal.available.checked_add(amount).ok_or(BalanceError::Overflow)?;
+        bal.available = bal
+            .available
+            .checked_add(amount)
+            .ok_or(BalanceError::Overflow)?;
         self.map.insert((user, asset), bal);
         Ok(())
     }
@@ -27,10 +32,16 @@ impl Balances {
         asset: AssetId,
         amount: Amount,
     ) -> Result<(), BalanceError> {
+        if amount == 0 {
+            return Err(BalanceError::InvalidAmount);
+        }
         let mut bal = self.get(user, asset);
-        bal.available = bal.available.checked_sub(amount).ok_or(BalanceError::Insufficient)?;
+        bal.available = bal
+            .available
+            .checked_sub(amount)
+            .ok_or(BalanceError::Insufficient)?;
         self.map.insert((user, asset), bal);
-        Ok(()) 
+        Ok(())
     }
 
     pub fn lock(
@@ -39,9 +50,18 @@ impl Balances {
         asset: AssetId,
         amount: Amount,
     ) -> Result<(), BalanceError> {
+        if amount == 0 {
+            return Err(BalanceError::InvalidAmount);
+        }
         let mut bal = self.get(user, asset);
-        bal.available = bal.available.checked_sub(amount).ok_or(BalanceError::Insufficient)?;
-        bal.locked = bal.locked.checked_add(amount).ok_or(BalanceError::Overflow)?;
+        bal.available = bal
+            .available
+            .checked_sub(amount)
+            .ok_or(BalanceError::Insufficient)?;
+        bal.locked = bal
+            .locked
+            .checked_add(amount)
+            .ok_or(BalanceError::Overflow)?;
         self.map.insert((user, asset), bal);
         Ok(())
     }
@@ -52,9 +72,18 @@ impl Balances {
         asset: AssetId,
         amount: Amount,
     ) -> Result<(), BalanceError> {
+        if amount == 0 {
+            return Err(BalanceError::InvalidAmount);
+        }
         let mut bal = self.get(user, asset);
-        bal.locked = bal.locked.checked_sub(amount).ok_or(BalanceError::Insufficient)?;
-        bal.available = bal.available.checked_add(amount).ok_or(BalanceError::Overflow)?;
+        bal.locked = bal
+            .locked
+            .checked_sub(amount)
+            .ok_or(BalanceError::Insufficient)?;
+        bal.available = bal
+            .available
+            .checked_add(amount)
+            .ok_or(BalanceError::Overflow)?;
         self.map.insert((user, asset), bal);
         Ok(())
     }
@@ -66,6 +95,9 @@ impl Balances {
         asset: AssetId,
         amount: Amount,
     ) -> Result<(), BalanceError> {
+        if amount == 0 {
+            return Err(BalanceError::InvalidAmount);
+        }
         if from == to {
             return self.unlock(from, asset, amount);
         }
@@ -73,12 +105,17 @@ impl Balances {
         let mut sender = self.get(from, asset);
         let mut receiver = self.get(to, asset);
 
-        sender.locked = sender.locked.checked_sub(amount).ok_or(BalanceError::Insufficient)?;
-        receiver.available = receiver.available.checked_add(amount).ok_or(BalanceError::Overflow)?;
+        sender.locked = sender
+            .locked
+            .checked_sub(amount)
+            .ok_or(BalanceError::Insufficient)?;
+        receiver.available = receiver
+            .available
+            .checked_add(amount)
+            .ok_or(BalanceError::Overflow)?;
 
         self.map.insert((from, asset), sender);
         self.map.insert((to, asset), receiver);
         Ok(())
     }
-
 }

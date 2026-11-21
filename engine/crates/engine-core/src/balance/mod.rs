@@ -1,4 +1,3 @@
-
 use std::collections::BTreeMap;
 
 use crate::types::{Amount, AssetId, UserId};
@@ -22,17 +21,17 @@ pub struct Balance {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum BalanceError {
     Insufficient,
-    Overflow
+    Overflow,
+    InvalidAmount,
 }
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct AssetBalance {
     pub asset_id: AssetId,
-    pub balance: Balance
+    pub balance: Balance,
 }
-
 
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Balances {
-    pub map: BTreeMap<(UserId, AssetId), Balance>,
+    map: BTreeMap<(UserId, AssetId), Balance>,
 }

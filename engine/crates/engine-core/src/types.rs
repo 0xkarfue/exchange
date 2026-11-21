@@ -1,11 +1,18 @@
 pub type Amount = u128;
-pub type Price = u64;
-pub type Quantity = u64;
-pub type UserId = u64;
-pub type AssetId = u64;
-pub type MarketId = u64;
-pub type OrderId = u64;
-pub type AssetSymbol = String;
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Price(pub u64);
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Quantity(pub u64);
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
+pub struct UserId(pub u64);
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default)]
+pub struct AssetId(pub u64);
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct MarketId(pub u64);
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct OrderId(pub u64);
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct AssetSymbol(pub String);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Side {

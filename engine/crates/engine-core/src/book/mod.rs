@@ -12,8 +12,8 @@ mod tests;
 #[derive(Debug, Clone, Default)]
 pub struct OrderBook {
     pub bids: BTreeMap<Price, VecDeque<OrderId>>,
-    pub asks: BTreeMap<Price, VecDeque<OrderId>>, 
-    pub orders: HashMap<OrderId, Order>, 
+    pub asks: BTreeMap<Price, VecDeque<OrderId>>,
+    pub orders: HashMap<OrderId, Order>,
 }
 
 #[derive(Debug, Clone, Default)]
