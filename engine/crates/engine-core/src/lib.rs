@@ -4,3 +4,6 @@ pub mod balance;
 pub mod book;
 pub mod order;
 pub mod types;
+pub mod market;
+pub mod command;
+pub mod event;

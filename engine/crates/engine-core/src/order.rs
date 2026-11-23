@@ -6,7 +6,7 @@ pub enum OrderType {
     Limit,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct Order {
     pub id: OrderId,
     pub user: UserId,
