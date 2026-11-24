@@ -1,7 +1,5 @@
 use crate::{
-    book::{BookError, OrderBook},
-    order::Order,
-    types::{OrderId, Price, Quantity, Side},
+    book::{BookError, OrderBook, OrderBooks}, order::Order, types::{MarketId, OrderId, Price, Quantity, Side},
 };
 
 impl OrderBook {
@@ -61,5 +59,17 @@ impl OrderBook {
         let order = self.orders.remove(&id).ok_or(BookError::OrderNotFound)?;
 
         Ok(order)
+    }
+}
+
+
+impl OrderBooks {
+    pub fn new(market_ids: impl IntoIterator<Item = MarketId>) -> Self {
+        let map = market_ids
+            .into_iter()
+            .map(|market_id| (market_id, OrderBook::default()))
+            .collect();
+
+        Self { map }
     }
 }
