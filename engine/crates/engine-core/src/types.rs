@@ -9,7 +9,7 @@ pub struct UserId(pub u64);
 pub struct AssetId(pub u64);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Hash, PartialOrd, Ord)]
 pub struct MarketId(pub u64);
-#[derive(Debug, Default ,Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct OrderId(pub u64);
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AssetSymbol(pub String);

@@ -1,12 +1,18 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
-use crate::{balance::Balances, book::OrderBooks, market::{Asset, Market}, types::{AssetId, MarketId}};
+use crate::{
+    balance::Balances,
+    book::OrderBooks,
+    market::{Asset, Market},
+    types::{AssetId, MarketId},
+};
 
 pub mod ops;
 pub struct Engine {
     orderbooks: OrderBooks,
     balances: Balances,
-    markets: HashMap<MarketId, Market>,
+    markets: BTreeMap<MarketId, Market>,
+    assets: BTreeMap<AssetId, Asset>,
     order_id_counter: u64,
-    event_sequence_counter: u64
+    event_sequence_counter: u64,
 }

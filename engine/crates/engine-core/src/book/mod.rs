@@ -25,5 +25,5 @@ pub struct OrderBooks {
 pub enum BookError {
     InvalidOrder,
     DuplicateOrder,
-    OrderNotFound
+    OrderNotFound,
 }

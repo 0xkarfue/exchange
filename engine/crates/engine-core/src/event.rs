@@ -1,4 +1,6 @@
-use crate::types::{Amount, AssetId, MarketId, OrderId, OrderStatus, Price, Quantity, Side, UserId};
+use crate::types::{
+    Amount, AssetId, MarketId, OrderId, OrderStatus, Price, Quantity, Side, UserId,
+};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Sequence(pub u64);
@@ -8,7 +10,7 @@ pub struct TradeId(pub u64);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum RejectReason {
-    UnkownMarket,
+    UnknownMarket,
     InvalidPrice,
     InvalidQuantity,
     BelowMinNotional,
@@ -17,6 +19,7 @@ pub enum RejectReason {
     OrderNotFound,
     NotOrderOwner,
     Overflow,
+    UnknownAsset,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -65,7 +68,6 @@ pub struct OrderPlaced {
     pub price: Price,
     pub qty: Quantity,
 }
-
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Trade {

@@ -1,5 +1,7 @@
 use crate::{
-    book::{BookError, OrderBook, OrderBooks}, order::Order, types::{MarketId, OrderId, Price, Quantity, Side},
+    book::{BookError, OrderBook, OrderBooks},
+    order::Order,
+    types::{MarketId, OrderId, Price, Quantity, Side},
 };
 
 impl OrderBook {
@@ -50,7 +52,6 @@ impl OrderBook {
         if let Some(queue) = levels.get_mut(&price) {
             queue.retain(|&order_id| order_id != id);
 
-      
             if queue.is_empty() {
                 levels.remove(&price);
             }
@@ -62,7 +63,6 @@ impl OrderBook {
     }
 }
 
-
 impl OrderBooks {
     pub fn new(market_ids: impl IntoIterator<Item = MarketId>) -> Self {
         let map = market_ids
@@ -71,5 +71,9 @@ impl OrderBooks {
             .collect();
 
         Self { map }
+    }
+
+    pub fn get_mut(&mut self, market_id: MarketId) -> Option<&mut OrderBook> {
+        self.map.get_mut(&market_id)
     }
 }

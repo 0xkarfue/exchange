@@ -9,7 +9,7 @@ pub enum OrderType {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct Order {
     pub id: OrderId,
-    pub user: UserId,
+    pub user_id: UserId,
     pub side: Side,
     pub price: Price,
     pub qty: Quantity,

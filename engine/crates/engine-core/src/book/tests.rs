@@ -7,7 +7,7 @@ use crate::{
 fn order(id: u64, side: Side, price: u64, qty: u64) -> Order {
     Order {
         id: OrderId(id),
-        user: UserId(1),
+        user_id: UserId(1),
         side,
         price: Price(price),
         qty: Quantity(qty),
@@ -82,4 +82,3 @@ fn get_nonexistent_order() {
 
     assert_eq!(book.get(OrderId(42)), None);
 }
-
